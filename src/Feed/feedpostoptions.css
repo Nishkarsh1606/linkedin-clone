@@ -1,4 +1,12 @@
 .feedpostoptions{
     display: flex;
+    padding:10px; 
+    align-items: center;
     font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.feedpostoptions:hover{
+    background-color: lightgray; 
+    border-radius: 20px;
 }

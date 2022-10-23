@@ -1,11 +1,12 @@
+import { margin } from '@mui/system'
 import React from 'react'
 import './feedpostoptions.css'
 
-function Feedpostoptions({icon,title}) {
+function Feedpostoptions({Icon,title,color}) {
   return (
     <div className='feedpostoptions'>
-        <div><img src={icon} alt={title}/></div>
-        <div>{title}</div>
+        <Icon style={{color:color}}/>
+        <h4 style={{marginLeft:'5px'}}>{title}</h4>
     </div>
   )
 }

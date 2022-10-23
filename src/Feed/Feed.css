@@ -10,3 +10,32 @@
     border-radius:10px;
     margin-bottom: 20px;
 }
+
+.feedinput{
+    display: flex;
+    color:gray;
+    padding:10px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+
+.feedinput>form{
+    display: flex;
+    width: 100%;
+}
+
+.feedinput>form>input{
+    flex:1; 
+    outline: none;
+    margin-left: 10px;
+    width: 90%;
+}
+.feedinput>form>button{
+    display: none;
+}
+
+.feed_postoptions{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+}

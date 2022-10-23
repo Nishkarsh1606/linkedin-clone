@@ -1,0 +1,29 @@
+.postContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px; 
+}
+
+.postHeader{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.userInfo{
+    margin-left: 10px;
+}
+.userInfo>h1{
+    font-weight:700;
+}
+.userInfo>h3{
+    color:lightgray;
+    font-size:0.9rem;
+    font-weight: 500;
+}
+.postOptions{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+}
