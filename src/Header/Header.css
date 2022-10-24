@@ -5,6 +5,9 @@
     border-bottom: 0.1px solid lightgrey;
     padding-top:10px;
     padding-bottom:10px;
+    position:fixed;
+    background-color: white;
+    z-index: 9;
 }
 
 .header_left{
