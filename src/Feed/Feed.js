@@ -7,7 +7,7 @@ import ImageIcon from '@mui/icons-material/Image'
 import VideoIcon from '@mui/icons-material/VideoCall'
 import EventIcon from '@mui/icons-material/CalendarMonth'
 import ArticleIcon from '@mui/icons-material/Article'
-import {db} from '../firebase'
+import {db,auth} from '../firebase'
 
 function Feed() {
     const [posts,setPosts]=useState([])
@@ -38,6 +38,11 @@ function Feed() {
                     <Posts/>
                 })
             }
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
             <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
         </div>
     )
