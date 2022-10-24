@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import Feedpostoptions from './feedpostoptions'
 import './Feed.css'
 import Posts from './Posts'
@@ -7,8 +7,15 @@ import ImageIcon from '@mui/icons-material/Image'
 import VideoIcon from '@mui/icons-material/VideoCall'
 import EventIcon from '@mui/icons-material/CalendarMonth'
 import ArticleIcon from '@mui/icons-material/Article'
+import {db} from '../firebase'
 
 function Feed() {
+    const [posts,setPosts]=useState([])
+    
+    const sendPost=(e)=>{
+        e.preventDefault()
+    }
+
     return (
         <div className='feed'>
             <div className="feed_postcontainer">
@@ -16,7 +23,7 @@ function Feed() {
                     <CreateIcon/>
                     <form>
                         <input type="text" placeholder='Start a post'/>
-                        <button type="submit">Send</button>
+                        <button onClick={sendPost} type="submit">Send</button>
                     </form>
                 </div>
                 <div className="feed_postoptions">
@@ -26,6 +33,11 @@ function Feed() {
                     <Feedpostoptions Icon={ArticleIcon} title={'Write Article'} color={'teal'}/>
                 </div>
             </div>
+            {
+                posts.map(post=>{
+                    <Posts/>
+                })
+            }
             <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'}/>
         </div>
     )
