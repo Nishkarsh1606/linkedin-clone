@@ -4,11 +4,12 @@
 }
 
 .feed_postcontainer{
+    margin-top: 20px;
     background-color: white;
     padding:10px;
     padding-bottom: 20px;
     border-radius:10px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .feedinput{
