@@ -8,6 +8,8 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Avatar } from "@mui/material";
+import ProfileIcon from '../assets/nishkarsh-profile.jpg'
 
 function Header() {
     return (
@@ -27,6 +29,7 @@ function Header() {
                     <HeaderOption title='Jobs' Icon={BusinessCenterIcon}/>
                     <HeaderOption title='Messaging' Icon={ChatIcon}/>
                     <HeaderOption title='Notification' Icon={NotificationsIcon}/>
+                    <Avatar src={ProfileIcon}/>
             </div>
         </div>
     )
