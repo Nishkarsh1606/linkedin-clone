@@ -1,16 +1,10 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAhmg5eRSTMtmWLHRA8qLOUh6Ianmd8T5U",
   authDomain: "linkedin-clone-5890a.firebaseapp.com",
+  databaseURL: "https://linkedin-clone-5890a-default-rtdb.firebaseio.com",
   projectId: "linkedin-clone-5890a",
   storageBucket: "linkedin-clone-5890a.appspot.com",
   messagingSenderId: "639199553348",
@@ -18,8 +12,8 @@ const firebaseConfig = {
   measurementId: "G-WK0Q0YMXCS"
 };
 
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const db=getFirestore(firebaseApp)
-const auth=getAuth(firebaseApp)
-export {db,auth}
+
+const app = initializeApp(firebaseConfig);
+const auth=getAuth(app)
+const provider=new GoogleAuthProvider()
+signInWithPopup(auth,provider)

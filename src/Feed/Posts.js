@@ -7,7 +7,7 @@ import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
 import SendIcon from '@mui/icons-material/Send'
 
-function Posts({userName,userEmail,userPost}) {
+function    Posts({userName,userEmail,userPost}) {
     return (
         <div className="postContainer">
             <div className="postHeader">

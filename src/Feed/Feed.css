@@ -1,6 +1,8 @@
 .feed{
     flex:0.6;
     margin: 0 20px;
+    padding:12px;
+    max-width: 50%;
 }
 
 .feed_postcontainer{
