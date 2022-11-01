@@ -1,19 +1,22 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getFirestore, collection } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAhmg5eRSTMtmWLHRA8qLOUh6Ianmd8T5U",
-  authDomain: "linkedin-clone-5890a.firebaseapp.com",
-  databaseURL: "https://linkedin-clone-5890a-default-rtdb.firebaseio.com",
-  projectId: "linkedin-clone-5890a",
-  storageBucket: "linkedin-clone-5890a.appspot.com",
-  messagingSenderId: "639199553348",
-  appId: "1:639199553348:web:ab3e4a214cd8af62c5d911",
-  measurementId: "G-WK0Q0YMXCS"
-};
+  apiKey: "AIzaSyA85BYCasU9-a1AR0ZL_M2g0KrsCeU7XuY",
+  authDomain: "linkedin-8ed21.firebaseapp.com",
+  projectId: "linkedin-8ed21",
+  storageBucket: "linkedin-8ed21.appspot.com",
+  messagingSenderId: "556232310441",
+  appId: "1:556232310441:web:1e5535f6d081e809c9f3b8"
+}
+const app=initializeApp(firebaseConfig)
+const db = getFirestore(app, {
+  experimentalForceLongPolling: true,
+  useFetchStreams: false,
+})
+const auth = getAuth(app)
+const collectionRef = collection(db, "posts")
+const provider = new GoogleAuthProvider()
 
-
-const app = initializeApp(firebaseConfig);
-const auth=getAuth(app)
-const provider=new GoogleAuthProvider()
-signInWithPopup(auth,provider)
+export {app, db, auth, collectionRef, provider}
