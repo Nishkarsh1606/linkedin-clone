@@ -7,65 +7,47 @@ import ImageIcon from '@mui/icons-material/Image'
 import VideoIcon from '@mui/icons-material/VideoCall'
 import EventIcon from '@mui/icons-material/CalendarMonth'
 import ArticleIcon from '@mui/icons-material/Article'
-import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, initializeFirestore } from 'firebase/firestore'
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { initializeApp } from "firebase/app";
-
+import { onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collectionRef, postsOrderedbyLatest } from '../firebase'
 
 function Feed() {
-    const firebaseConfig = {
-        apiKey: "AIzaSyA85BYCasU9-a1AR0ZL_M2g0KrsCeU7XuY",
-        authDomain: "linkedin-8ed21.firebaseapp.com",
-        projectId: "linkedin-8ed21",
-        storageBucket: "linkedin-8ed21.appspot.com",
-        messagingSenderId: "556232310441",
-        appId: "1:556232310441:web:1e5535f6d081e809c9f3b8"
-    }
-    const app=initializeApp(firebaseConfig)
-    const db = getFirestore(app, {
-        experimentalForceLongPolling: true,
-        useFetchStreams: false,
-    })
-    const auth = getAuth(app)
-    const collectionRef = collection(db, "posts")
-    const provider = new GoogleAuthProvider()
-    const [user] = useAuthState(auth);
     const [posts, setPosts] = useState([])
-
+    const [input, setInput] = useState("")
+    const [photoURL, setPhotoURL] = useState('')
     useEffect(() => {
-        onSnapshot(collectionRef, (snapshot) => {
+        onSnapshot(postsOrderedbyLatest, (snapshot) => {
             setPosts(
-                snapshot.docs.forEach((doc) => {
-                    return ({ ...doc.data(), id: doc.id })
-                })
+                snapshot.docs.forEach((doc) => (
+                    { ...doc.data(), id: doc.id }
+                ))
             )
         })
-    })
-
-    const [input, setInput] = useState("")
-
+    }, [])
     const sendPost = (e) => {
         e.preventDefault()
-        setInput('')
         addDoc(collectionRef, {
             Author: 'Nishkarsh',
             postContent: input,
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),
+            photoURL: ''
         }).then(() => {
-            console.log('post successful')
-        }).catch((e) => {
-            console.log(e)
-            alert('Could not post')
-        })
+            console.log('successfully posted to firebase')
+        }).catch(err => console.log(err))
+        setInput('')
     }
+
     return (
         <div className='feed'>
             <div className="feed_postcontainer">
                 <div className="feedinput">
                     <CreateIcon />
                     <form>
-                        <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder='Start a post' />
+                        <input value={input}
+                            onChange={(e) => {
+                                setInput(e.target.value).then(() => {
+                                    setPhotoURL('')
+                                })
+                            }} type="text" placeholder='Start a post' />
                         <button onClick={sendPost} type="submit">Send</button>
                     </form>
                 </div>
@@ -77,12 +59,20 @@ function Feed() {
                 </div>
             </div>
             <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'} />
-            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'} />
-            {/* {
-                posts.map(post => {
-                    <Posts />
-                })
-            } */}
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hey'} />
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'House'} />
+            {
+                // posts.map(({ data: { id, Author, postContent, photoURL } }) => (
+                //     <Posts
+                //         key={id}
+                //         userName={Author}
+                //         userPost={postContent}
+                //         photoURL={photoURL}
+                //     />
+                // ))
+            }
+
+
         </div>
     )
 }

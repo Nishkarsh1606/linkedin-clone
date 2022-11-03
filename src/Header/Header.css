@@ -49,3 +49,7 @@
     border-radius: 20px;
     background-color: white !important;
 }
+
+.profileAvatar{
+    cursor: pointer;
+}
