@@ -2,43 +2,49 @@ import React from 'react'
 import './Login.css'
 import LinkedinLogo from '../assets/linkedinBig.png';
 //sign in user with pop up - singinwith popup from firebase, auth, provider from firebase
-import { signInWithPopup, createUserWithEmailAndPassword,updateProfile } from 'firebase/auth'
+import { signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithRedirect, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, provider } from '../firebase'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {login} from '../features/userSlice'
+import { login } from '../features/userSlice'
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Login() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [profilePic, setProfilePic] = useState('')
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
-    const loginToApp = (e) => {
+    const signInWithGoogle = (e) => {
         signInWithPopup(auth, provider)
+    }
+
+    const signInWithEmail = (e) => {
+        e.preventDefault()
+        signInWithEmailAndPassword(auth, email, password)
     }
 
     const register = (e) => {
         e.preventDefault()
-        if(!name || !email || !password){
+        if (!name || !email || !password) {
             return alert('Please enter your name')
         }
-        else{
-            createUserWithEmailAndPassword(auth, email, password).then(()=>{
-                updateProfile(auth.currentUser,{
-                    displayName:name,
-                    photoURL:profilePic
+        else {
+            createUserWithEmailAndPassword(auth, email, password).then(() => {
+                updateProfile(auth.currentUser, {
+                    displayName: name,
+                    photoURL: profilePic
                 })
-            }).then(()=>{
-                alert('you are now signed up')
+            }).then(() => {
+                alert('Successfully Signed Up!')
                 dispatch(login({
-                    email:auth.currentUser.email,
-                    displayName:auth.currentUser.displayName,
-                    photoURL:auth.currentUser.photoURL,
-                    uid:auth.currentUser.uid
+                    email: auth.currentUser.email,
+                    displayName: auth.currentUser.displayName,
+                    photoURL: auth.currentUser.photoURL,
+                    uid: auth.currentUser.uid
                 }))
-            }).catch((error)=>{
+            }).catch((error) => {
                 alert(error)
             })
         }
@@ -49,21 +55,22 @@ function Login() {
             {/* -------  Sign up section -------- */}
             <img src={LinkedinLogo} alt="" />
             <form action="" className='sign-up-form'>
-                <input type="text" placeholder='Full Name' onChange={e => setName(e.target.value)} />
+                <input type="text" placeholder='Full Name (only required if registering for first time)*' onChange={e => setName(e.target.value)} />
                 <input type="text" placeholder='Email' onChange={e => setEmail(e.target.value)} />
                 <input type="password" placeholder='Password' onChange={e => setPassword(e.target.value)} />
                 <input type="url" placeholder='Profile Pic URL (Optional)' onChange={e => setProfilePic(e.target.value)} />
-                <button type="submit" onClick={register}>Sign Up</button>
+                <button type="submit" onClick={register} className='register-btn'>Register Now</button>
+                <button type="submit" onClick={signInWithEmail}>Sign In</button>
             </form>
-                {/* --------  Sign In Section -------- */}
-                <div className="left-right-divider">
-                    <p>
-                        or
-                    </p><br />
-                </div>
-                <div className="sign-in">
-                    <h3>Already a member? <span className='register-user' onClick={loginToApp}>Sign in here</span></h3>
-                </div>
+            {/* Sign in with google section  */}
+            <div className="left-right-divider">
+                <p>
+                    or
+                </p><br />
+            </div>
+            <div className="sign-in">
+                <h3>Sign in with<span className='register-user' onClick={signInWithGoogle}> Google</span></h3>
+            </div>
         </div>
     )
 }

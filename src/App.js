@@ -15,24 +15,24 @@ import Widgets from './Widgets/Widgets.js';
 function App() {
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
-  const [userAuth]=useAuthState(auth)
+  const [userAuth] = useAuthState(auth)
 
-//   useEffect(() => {
-//     onAuthStateChanged(auth, (user) => {
-//       if (user) {
-//         //user is logged in
-//         dispatch(login({
-//           email: user.email,
-//           displayName: user.displayName,
-//           photoURL: user.photoURL,
-//           uid: user.uid
-//         }))
-//       } else {
-//         //user is logged out
-//         dispatch(logout())
-//       }
-//     })
-// },[])
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        //user is logged in
+        dispatch(login({
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid
+        }))
+      } else {
+        //user is logged out
+        dispatch(logout())
+      }
+    })
+  }, [])
 
   return (
     <div className="app">
@@ -44,7 +44,7 @@ function App() {
             <Sidebar />
             <Feed />
             {/* Widgets/Right Side bar */}
-            <Widgets/>
+            <Widgets />
           </div>
         )
       }

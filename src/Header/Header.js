@@ -10,21 +10,22 @@ import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Avatar } from "@mui/material";
 import ProfileIcon from '../assets/nishkarsh-profile.jpg'
-import {signOut} from 'firebase/auth'
-import {auth} from '../firebase'
-import { useDispatch } from "react-redux";
-import { logout } from "../features/userSlice";
-import {useAuthState} from 'react-firebase-hooks/auth'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../features/userSlice";
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 function Header() {
-    let [userAuth]=useAuthState(auth)
-    const dispath=useDispatch()
-    const logoutOutofApp=()=>{
-        alert('button')
+    let [userAuth] = useAuthState(auth)
+    const dispath = useDispatch()
+    const user=useSelector(selectUser)
+    
+    const logoutOutofApp = () => {
         dispath(logout())
-        signOut(auth).then(()=>{
-            userAuth=null
-        }).catch((error)=>{
+        signOut(auth).then(() => {
+            alert('signed out')
+        }).catch((error) => {
             alert(error)
         })
     }
@@ -36,16 +37,19 @@ function Header() {
                 <div className="header_search">
                     {/* Only use material icons after install material ui --note */}
                     <SearchIcon />
-                    <input type="text" placeholder="Search"/>
+                    <input type="text" placeholder="Search" />
                 </div>
             </div>
             <div className="header_right">
-                    <HeaderOption title='Home' Icon={HomeIcon}/>
-                    <HeaderOption title='My Network' Icon={SupervisorAccountIcon}/>
-                    <HeaderOption title='Jobs' Icon={BusinessCenterIcon}/>
-                    <HeaderOption title='Messaging' Icon={ChatIcon}/>
-                    <HeaderOption title='Notification' Icon={NotificationsIcon}/>
-                    <Avatar src={ProfileIcon} onClick={logoutOutofApp} className='profileAvatar'/>
+                <HeaderOption title='Home' Icon={HomeIcon} />
+                <HeaderOption title='My Network' Icon={SupervisorAccountIcon} />
+                <HeaderOption title='Jobs' Icon={BusinessCenterIcon} />
+                <HeaderOption title='Messaging' Icon={ChatIcon} />
+                <HeaderOption title='Notification' Icon={NotificationsIcon} />
+                {
+                    user.photoURL?<Avatar src={user.photoURL} onClick={logoutOutofApp} className='profileAvatar'/>:
+                    <Avatar src={user.photoURL} onClick={logoutOutofApp} className='profileAvatar'>{user.email[0]}</Avatar>
+                }
             </div>
         </div>
     )

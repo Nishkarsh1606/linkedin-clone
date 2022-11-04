@@ -9,11 +9,14 @@ import EventIcon from '@mui/icons-material/CalendarMonth'
 import ArticleIcon from '@mui/icons-material/Article'
 import { onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
 import { collectionRef, postsOrderedbyLatest } from '../firebase'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../features/userSlice'
 
 function Feed() {
     const [posts, setPosts] = useState([])
     const [input, setInput] = useState("")
     const [photoURL, setPhotoURL] = useState('')
+    const user = useSelector(selectUser)
     useEffect(() => {
         onSnapshot(postsOrderedbyLatest, (snapshot) => {
             setPosts(
@@ -26,10 +29,11 @@ function Feed() {
     const sendPost = (e) => {
         e.preventDefault()
         addDoc(collectionRef, {
-            Author: 'Nishkarsh',
+            Author: user.displayName,
             postContent: input,
             createdAt: serverTimestamp(),
-            photoURL: ''
+            photoURL: user.photoURL || "",
+            email:user.email
         }).then(() => {
             console.log('successfully posted to firebase')
         }).catch(err => console.log(err))
@@ -58,18 +62,18 @@ function Feed() {
                     <Feedpostoptions Icon={ArticleIcon} title={'Write Article'} color={'teal'} />
                 </div>
             </div>
-            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hello World'} />
-            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hey'} />
-            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'House'} />
+            <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hey there 👋, welcome to my open-linkedin build! Please do not spam the wall and be respectful to other users!'} />
+            <Posts userName={'Tim Ferris'} userEmail={'tim.ferris@gmail.com'} userPost={'Good stuff'} />
+            <Posts userName={'Elon Musk'} userEmail={'elon.musk@gmail.com'} userPost={'for sale?'} />
             {
-                // posts.map(({ data: { id, Author, postContent, photoURL } }) => (
+                // posts.map() => (
                 //     <Posts
                 //         key={id}
                 //         userName={Author}
                 //         userPost={postContent}
                 //         photoURL={photoURL}
                 //     />
-                // ))
+                // )
             }
 
 
