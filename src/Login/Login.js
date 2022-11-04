@@ -16,7 +16,9 @@ function Login() {
     const dispatch = useDispatch()
 
     const signInWithGoogle = (e) => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, provider).catch((e)=>{
+            alert(`Sorry,firebase disabled sign in with pop up on free hosting plans with vercel. But rest assured the method would work on a paid domain!`)
+        })
     }
 
     const signInWithEmail = (e) => {
