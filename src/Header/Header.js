@@ -24,7 +24,8 @@ function Header() {
     const logoutOutofApp = () => {
         dispath(logout())
         signOut(auth).then(() => {
-            alert('signed out')
+            alert('Successfully Signed Out')
+            window.location.reload()
         }).catch((error) => {
             alert(error)
         })
