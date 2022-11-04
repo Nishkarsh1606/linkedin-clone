@@ -44,7 +44,7 @@ function App() {
             <Sidebar />
             <Feed />
             {/* Widgets/Right Side bar */}
-            <Widgets />
+            <Widgets/>
           </div>
         )
       }
