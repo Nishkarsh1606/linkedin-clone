@@ -16,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 
 const db=getFirestore(app)
 const collectionRef=collection(db,"posts")
-const postsOrderedbyLatest=query(collectionRef,orderBy("name"))
+const postsOrderedbyLatest=query(collectionRef,orderBy("createdAt","desc"))
 
 const auth= getAuth(app)
 const provider=new GoogleAuthProvider()

@@ -10,10 +10,8 @@ function Posts({ userName, userEmail, userPost, photoURL }) {
     return (
         <div className="postContainer">
             <div className="postHeader">
-                {
-                    photoURL===""?<Avatar src={photoURL} className='profileAvatar' />:
-                    <Avatar src={photoURL} className='profileAvatar'>{userName[0]}</Avatar>
-                }
+                {photoURL?<Avatar src={photoURL} className='profileAvatar'/>:
+                <Avatar className='profileAvatar'>{userEmail[0]}</Avatar>}
                 <div className="userInfo">
                     <h1>{userName}</h1>
                     <h3>{userEmail}</h3>

@@ -8,36 +8,40 @@ import VideoIcon from '@mui/icons-material/VideoCall'
 import EventIcon from '@mui/icons-material/CalendarMonth'
 import ArticleIcon from '@mui/icons-material/Article'
 import { onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
-import { collectionRef, postsOrderedbyLatest } from '../firebase'
+import { collectionRef,postsOrderedbyLatest } from '../firebase'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../features/userSlice'
 
 function Feed() {
     const [posts, setPosts] = useState([])
     const [input, setInput] = useState("")
-    const [photoURL, setPhotoURL] = useState('')
     const user = useSelector(selectUser)
+
+    //useEffect hook to get all posts when the app renders
     useEffect(() => {
         onSnapshot(postsOrderedbyLatest, (snapshot) => {
-            setPosts(
-                snapshot.docs.forEach((doc) => (
-                    { ...doc.data(), id: doc.id }
-                ))
-            )
+            setPosts(snapshot.docs.map((doc) => (
+                {
+                    id: doc.id,
+                    data: doc.data()
+                }
+            )))
         })
     }, [])
+
+    console.log(posts.length)
+
     const sendPost = (e) => {
         e.preventDefault()
         addDoc(collectionRef, {
             Author: user.displayName,
             postContent: input,
             createdAt: serverTimestamp(),
-            photoURL: user.photoURL || "",
-            email:user.email
-        }).then(() => {
-            console.log('successfully posted to firebase')
-        }).catch(err => console.log(err))
-        setInput('')
+            photoURL: user.photoURL || null,
+            email: user.email
+        }).then(()=>{
+            setInput('')
+        })
     }
 
     return (
@@ -46,12 +50,7 @@ function Feed() {
                 <div className="feedinput">
                     <CreateIcon />
                     <form>
-                        <input value={input}
-                            onChange={(e) => {
-                                setInput(e.target.value).then(() => {
-                                    setPhotoURL('')
-                                })
-                            }} type="text" placeholder='Start a post' />
+                        <input value={input} onChange={(e) => { setInput(e.target.value) }} type="text" placeholder='Start a post' />
                         <button onClick={sendPost} type="submit">Send</button>
                     </form>
                 </div>
@@ -63,20 +62,21 @@ function Feed() {
                 </div>
             </div>
             <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hey there 👋, welcome to my open-linkedin build! Please do not spam the wall and be respectful to other users!'} />
-            <Posts userName={'Tim Ferris'} userEmail={'tim.ferris@gmail.com'} userPost={'Good stuff'} />
-            <Posts userName={'Elon Musk'} userEmail={'elon.musk@gmail.com'} userPost={'for sale?'} />
+
             {
-                // posts.map() => (
-                //     <Posts
-                //         key={id}
-                //         userName={Author}
-                //         userPost={postContent}
-                //         photoURL={photoURL}
-                //     />
-                // )
+                console.log(posts)
             }
-
-
+            {
+                //code block where all posts will be rendered)
+                posts.map(({id,data:{email,Author,postContent}})=>{
+                    return <Posts
+                    key={id}
+                    userEmail={email}
+                    userName={Author}
+                    userPost={postContent}
+                    />
+                })
+            }
         </div>
     )
 }
