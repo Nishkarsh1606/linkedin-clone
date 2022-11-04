@@ -2,12 +2,11 @@ import React from 'react'
 import './Login.css'
 import LinkedinLogo from '../assets/linkedinBig.png';
 //sign in user with pop up - singinwith popup from firebase, auth, provider from firebase
-import { signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithRedirect, signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, provider } from '../firebase'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/userSlice'
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Login() {
     const [name, setName] = useState('')
@@ -22,7 +21,11 @@ function Login() {
 
     const signInWithEmail = (e) => {
         e.preventDefault()
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password).then(()=>{
+            //do nothing
+        }).catch(()=>{
+            alert(`Email and password don't match`)
+        })
     }
 
     const register = (e) => {
@@ -59,8 +62,8 @@ function Login() {
                 <input type="text" placeholder='Email' onChange={e => setEmail(e.target.value)} />
                 <input type="password" placeholder='Password' onChange={e => setPassword(e.target.value)} />
                 <input type="url" placeholder='Profile Pic URL (Optional)' onChange={e => setProfilePic(e.target.value)} />
-                <button type="submit" onClick={register} className='register-btn'>Register Now</button>
                 <button type="submit" onClick={signInWithEmail}>Sign In</button>
+                <button type="submit" onClick={register} className='register-btn'>Register Now</button>
             </form>
             {/* Sign in with google section  */}
             <div className="left-right-divider">

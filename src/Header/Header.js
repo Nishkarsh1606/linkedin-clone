@@ -9,15 +9,12 @@ import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Avatar } from "@mui/material";
-import ProfileIcon from '../assets/nishkarsh-profile.jpg'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 function Header() {
-    let [userAuth] = useAuthState(auth)
     const dispath = useDispatch()
     const user=useSelector(selectUser)
     

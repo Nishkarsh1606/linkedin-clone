@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "linkedin-clone-5890a"
-  }
+    "default": "linkedin-8ed21",
+    "production": "linkedin-8ed21"
+  },
+  "targets": {},
+  "etags": {}
 }

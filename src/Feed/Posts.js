@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import './Posts.css'
 import { Avatar } from '@mui/material'
 import Feedpostoptions from './feedpostoptions'
@@ -6,16 +5,13 @@ import LikeIcon from '@mui/icons-material/ThumbUp'
 import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
 import SendIcon from '@mui/icons-material/Send'
-import { useSelector } from 'react-redux'
-import { selectUser } from '../features/userSlice'
 
 function Posts({ userName, userEmail, userPost, photoURL }) {
-    const user=useSelector(selectUser)
     return (
         <div className="postContainer">
             <div className="postHeader">
                 {
-                    photoURL==""?<Avatar src={photoURL} className='profileAvatar' />:
+                    photoURL===""?<Avatar src={photoURL} className='profileAvatar' />:
                     <Avatar src={photoURL} className='profileAvatar'>{userName[0]}</Avatar>
                 }
                 <div className="userInfo">

@@ -3,8 +3,7 @@ import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar.js"
 import Feed from './Feed/Feed'
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from './features/userSlice'
+import { useDispatch} from 'react-redux';
 import Login from './Login/Login'
 import { onAuthStateChanged } from 'firebase/auth'
 import { login, logout } from './features/userSlice'
@@ -13,7 +12,6 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import Widgets from './Widgets/Widgets.js';
 
 function App() {
-  const user = useSelector(selectUser)
   const dispatch = useDispatch()
   const [userAuth] = useAuthState(auth)
 
@@ -32,7 +30,7 @@ function App() {
         dispatch(logout())
       }
     })
-  }, [])
+  }, [dispatch])
 
   return (
     <div className="app">
