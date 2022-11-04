@@ -3,7 +3,7 @@
     "rules": "database.rules.json"
   },
   "firestore": {
-    "rules": "firebase.js",
+    "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
   "functions": [
@@ -19,7 +19,7 @@
     }
   ],
   "hosting": {
-    "public": "public",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
