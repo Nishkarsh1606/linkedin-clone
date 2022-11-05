@@ -51,6 +51,7 @@ function Login() {
                     photoURL: auth.currentUser.photoURL,
                     uid: auth.currentUser.uid
                 }))
+                window.location.reload()
             }).catch((error) => {
                 alert(error)
             })
