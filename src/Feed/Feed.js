@@ -68,12 +68,13 @@ function Feed() {
             }
             {
                 //code block where all posts will be rendered)
-                posts.map(({id,data:{email,Author,postContent}})=>{
+                posts.map(({id,data:{email,Author,postContent,photoURL}})=>{
                     return <Posts
                     key={id}
                     userEmail={email}
                     userName={Author}
                     userPost={postContent}
+                    photoURL={photoURL}
                     />
                 })
             }

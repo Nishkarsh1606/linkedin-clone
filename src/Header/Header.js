@@ -45,7 +45,7 @@ function Header() {
                 <HeaderOption title='Messaging' Icon={ChatIcon} />
                 <HeaderOption title='Notification' Icon={NotificationsIcon} />
                 {
-                    user.photoURL?<Avatar src={user.photoURL} onClick={logoutOutofApp} className='profileAvatar'/>:
+                    auth.currentUser.photoURL?<Avatar src={auth.currentUser.photoURL} onClick={logoutOutofApp} className='profileAvatar'/>:
                     <Avatar src={user.photoURL} onClick={logoutOutofApp} className='profileAvatar'>{user.email[0]}</Avatar>
                 }
             </div>
