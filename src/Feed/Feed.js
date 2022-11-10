@@ -27,7 +27,7 @@ function Feed() {
                 }
             )))
         })
-    }, [])
+    }, [posts])
 
     console.log(posts.length)
 
