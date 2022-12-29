@@ -29,8 +29,6 @@ function Feed() {
         })
     }, [posts])
 
-    console.log(posts.length)
-
     const sendPost = (e) => {
         e.preventDefault()
         addDoc(collectionRef, {
@@ -62,10 +60,6 @@ function Feed() {
                 </div>
             </div>
             <Posts userName={'Nishkarsh'} userEmail={'nishkarsh2912'} userPost={'Hey there 👋, welcome to my open-linkedin build! Please do not spam the wall and be respectful to other users!'} />
-
-            {
-                console.log(posts)
-            }
             {
                 //code block where all posts will be rendered)
                 posts.map(({id,data:{email,Author,postContent,photoURL}})=>{

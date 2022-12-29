@@ -45,7 +45,7 @@ function Login() {
                 })
             }).then(() => {
                 alert('Successfully Signed Up!')
-                dispatch(login({
+                dispatch(login({ //login is the name of the reducer in userSlice
                     email: auth.currentUser.email,
                     displayName: auth.currentUser.displayName,
                     photoURL: auth.currentUser.photoURL,
